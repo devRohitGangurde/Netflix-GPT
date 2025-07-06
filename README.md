@@ -86,3 +86,4 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
    - movie list
 # Netflix-GPT
 This is the clone of netflix website. Developed in react using create react app
+   - movie list
