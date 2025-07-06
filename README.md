@@ -84,3 +84,5 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
    - trailer in bg
    - movie suggestion
    - movie list
+# Netflix-GPT
+This is the clone of netflix website. Developed in react using create react app
