@@ -73,6 +73,8 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 # 6 july 
 - Created react app - npx create-react-app project-name
 - Setup the tailwindcss
+- Login form
+- Sign in form
 
 # feature
 - Browse  ( after login only)
@@ -84,6 +86,4 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
    - trailer in bg
    - movie suggestion
    - movie list
-# Netflix-GPT
-This is the clone of netflix website. Developed in react using create react app
-   - movie list
+
