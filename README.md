@@ -75,6 +75,7 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 - Setup the tailwindcss
 - Login form
 - Sign in form
+- Create sign up using firebase authentication
 
 # feature
 - Browse  ( after login only)
