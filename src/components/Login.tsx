@@ -8,7 +8,6 @@ import {
   signInWithEmailAndPassword,
   updateProfile,
 } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
 
@@ -16,7 +15,6 @@ const Login: React.FC = () => {
   const name = useRef<HTMLInputElement>(null);
   const email = useRef<HTMLInputElement>(null);
   const password = useRef<HTMLInputElement>(null);
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
 
@@ -77,7 +75,6 @@ const Login: React.FC = () => {
                     photoURL: photoURL,
                   })
                 );
-                navigate('/browse')
               }
               })
               .catch((error) => {
@@ -92,7 +89,6 @@ const Login: React.FC = () => {
             const errorMessage = error.message;
             setErrorMessage(errorMessage);
             clearInputFieldData();
-            navigate('/')
           });
       }
     } else {
@@ -117,7 +113,6 @@ const Login: React.FC = () => {
                 photoURL: photoURL,
               })
             );
-            navigate('/browse')
             
           })
           .catch((error: { code: any; message: any }) => {
@@ -125,7 +120,6 @@ const Login: React.FC = () => {
             const errorMessage = error.message;
             setErrorMessage(errorMessage);
             clearInputFieldData();
-            navigate('/')
           });
       }
     }
