@@ -17,5 +17,5 @@ export const loginValidation = (
   } else if (!passwordRegx.test(password)) {
     return "Valid password is required.";
   }
-  return null;
+  return false;
 };

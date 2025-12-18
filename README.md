@@ -77,6 +77,13 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 - Sign in form
 - Create sign up using firebase authentication
 
+# 4 Oct
+- Create the redux store for sign in - and remove
+
+# 18 dec 2025
+- Created the sign in sign out. also uploaded photo
+- login page is done. 
+
 # feature
 - Browse  ( after login only)
   -  sign in / login page

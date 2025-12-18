@@ -1,17 +1,24 @@
 import React, { useRef, useState } from "react";
 import Header from "./Header";
-import { BG_URL } from "../utils/constant";
+import { BG_URL, USER_AVATAR } from "../utils/constant";
 import { loginValidation } from "../utils/validations";
 import { auth } from "../utils/firebase";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  updateProfile,
 } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addUser } from "../utils/userSlice";
 
 const Login: React.FC = () => {
   const name = useRef<HTMLInputElement>(null);
   const email = useRef<HTMLInputElement>(null);
   const password = useRef<HTMLInputElement>(null);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
 
 
   const [isSignInForm, setSignInForm] = useState(true);
@@ -32,7 +39,6 @@ const Login: React.FC = () => {
   }
 
   const onSubmitBtnClick = () => {
-    console.log(email.current);
 
     const validation = loginValidation(
       isSignInForm,
@@ -46,7 +52,7 @@ const Login: React.FC = () => {
     if (validation) return;
 
     if (isSignInForm) {
-      if (email.current && password.current) {
+      if (email.current?.value && password.current?.value) {
         signInWithEmailAndPassword(
           auth,
           email.current?.value,
@@ -55,12 +61,38 @@ const Login: React.FC = () => {
           .then((userCredential) => {
             // Signed in
             const user = userCredential.user;
-            clearInputFieldData();
+
+            updateProfile(user, {
+              displayName: name?.current?.value || '',
+              photoURL: USER_AVATAR,
+            })
+              .then(() => {
+                if(auth.currentUser){
+                const { uid, email, displayName, photoURL } = auth.currentUser;
+                dispatch(
+                  addUser({
+                    uid: uid,
+                    email: email,
+                    displayName: displayName,
+                    photoURL: photoURL,
+                  })
+                );
+                navigate('/browse')
+              }
+              })
+              .catch((error) => {
+                alert(error);
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                setErrorMessage(errorCode + "-" + errorMessage);
+              });
+           
           })
           .catch((error) => {
             const errorMessage = error.message;
             setErrorMessage(errorMessage);
             clearInputFieldData();
+            navigate('/')
           });
       }
     } else {
@@ -71,14 +103,29 @@ const Login: React.FC = () => {
           password.current?.value
         )
           .then((userCredential) => {
-            // Signed up
-            const user = userCredential.user;
             clearInputFieldData();
+            if (!auth.currentUser) {
+              // user not logged in
+              return;
+            }
+            const { uid, email, displayName, photoURL } = auth.currentUser;
+            dispatch(
+              addUser({
+                uid: uid,
+                email: email,
+                displayName: displayName,
+                photoURL: photoURL,
+              })
+            );
+            navigate('/browse')
+            
           })
           .catch((error: { code: any; message: any }) => {
+            alert(error)
             const errorMessage = error.message;
             setErrorMessage(errorMessage);
             clearInputFieldData();
+            navigate('/')
           });
       }
     }
